@@ -82,6 +82,7 @@ export class InsperHackInstruction extends BaseInstruction {
         code += "000";
         return code;
     }
+
     getRegValue(system, operand) {
         return system.registers[operand];
     }
@@ -104,7 +105,84 @@ export class InsperHackInstruction extends BaseInstruction {
     }
 }
 
-export class AddInstruction extends InsperHackInstruction {
+export class TwoOpInstruction extends InsperHackInstruction {
+    // checks if argument is valid and returns its code
+    matchCode(code) {
+        let memoryBit = this.extractMemoryBit(code);
+        let opCode = this.extractOpCode(code);
+        let cCode = memoryBit + opCode;
+
+        if (cCode in this.cCodeToArgs) {
+            return this.cCodeToArgs[cCode];
+        } else {
+            throw new Error('Argument is not valid.');
+        }
+    }
+    argsToDests = {
+        '000': [''],
+        '100': ['%A'],
+        '010': ['%D'],
+        '001': ['(%A)'],
+        '110': ['%A', '%D'],
+        '101': ['%A', '(%A)'],
+        '011': ['%D', '(%A)'],
+        '111': ['%A', '%D', '(%A)'],
+    }
+    // checks if destination(arg) is valid and returns its code
+    matchDest(arg) {
+        let destCode;
+        if (arg in this.argsToDests) {
+            destCode = this.argsToDests[arg];
+        } else {
+            throw new Error('Destination is not valid.');
+        }
+    }
+    // matches dest code to given arguments
+    argsToDestCode(args) {
+        let destCode = [0, 0, 0];
+        args = args.slice(1);
+        args.forEach(arg => {
+            if (arg === '%A') {
+                destCode[0] = 1;
+            }
+            if (arg === '%D') {
+                destCode[1] = 1;
+            }
+            if (arg === '(%A)') {
+                destCode[2] = 1;
+            }
+        });
+        return destCode.join('');
+    }
+    // gets the word of the operand which supposed to be reg or mem
+    getRMWord(system, op) { // reg/mem
+        let opWord;
+        if (this.isMemoryAccess(op)) {
+            opWord = this.getMemoryAddress(system);
+        } else if (op.startsWith('%'))  { 
+            opWord = this.getRegValue(system, op);
+        } else { 
+            throw new Error('Argument not valid: Needs to be register or memory access.');
+        }
+        return opWord;
+    }
+    // gets the word of the operand which supposed to be reg, mem or im
+    getRMIWord(system, op) { // reg/mem/im
+        let opWord;
+        if (this.isMemoryAccess(op)) {
+            opWord = this.getMemoryAddress(system);
+        } else if (op.startsWith('%'))  { 
+            opWord = this.getRegValue(system, op);
+        } else if (op.startsWith('$')) { 
+            opWord = this.getImmediateValue(op);
+        } else {
+            throw new Error('Argument not valid: Needs to be register, memory access or immediate value.');
+        }
+        return opWord;
+    }
+}
+
+export class AddInstruction extends TwoOpInstruction {
     static cCodeToArgs = {
         '0101010': ['$0'],
         '0111111': ['$1'],
@@ -121,47 +199,10 @@ export class AddInstruction extends InsperHackInstruction {
         '%A': '0000010',
         '(%A)':'1000010'
     };
-    static cCodeToDests = {
-        '000': [''],
-        '100': ['%A'],
-        '010': ['%D'],
-        '001': ['(%A)'],
-        '110': ['%A', '%D'],
-        '101': ['%A', '(%A)'],
-        '011': ['%D', '(%A)'],
-        '111': ['%A', '%D', '(%A)'],
-    };
-    createDestCodeFrom(args) {
-        let destCode = [0, 0, 0];
-        args = args.slice(1);
-        args.forEach(arg => {
-            if (arg === '%A') {
-                destCode[0] = 1;
-            }
-            if (arg === '%D') {
-                destCode[1] = 1;
-            }
-            if (arg === '(%A)') {
-                destCode[2] = 1;
-            }
-        });
-        return destCode.join('');
-    }
-    static matchesCode(code) {
-        let memoryBit = this.extractMemoryBit(code);
-        let opCode = this.extractOpCode(code);
-
-        return (memoryBit + opCode) in this.cCodeToArgs;
-    }
+    
     static fromMachineCode(code) { 
-        let memoryBit = this.extractMemoryBit(code);
-        let opCode = this.extractOpCode(code);
-        let cCode = memoryBit + opCode;
-
-        let params = this.cCodeToArgs[cCode];
-
-        let dests = this.cCodeToDests[this.extractDestCode(code)];
-
+        let params = this.matchCode(code);
+        let dests = this.matchDest(code);
         let args = params.concat(dests);
 
         return new AddInstruction(args);
@@ -174,32 +215,17 @@ export class AddInstruction extends InsperHackInstruction {
         let opCode = this.argsToCcode[this.args[0]];
         code += opCode;
         // append params and destinations
-        code += this.noJump(this.createDestCodeFrom(this.args));
+        code += this.noJump(this.argsToDestCode(this.args));
         return code;
     }
 
     executeOn(system) {
-        // operand 1 reg/mem
-        let op1Word;
-        if (this.isMemoryAccess(this.op1)) {
-            op1Word = this.getMemoryAddress(system);
-        } else {
-            op1Word = this.getRegValue(system, this.op1);
-        };
-
-        // operand 2 reg/mem/im
-        let op2Word;
-        if (this.isMemoryAccess(this.op2)) {
-            op2Word = this.getMemoryAddress(system);
-        } else if (this.op2.startsWith('%'))  { 
-            op2Word = this.getRegValue(system, this.op2);
-        } else { 
-            op2Word = this.getImmediateValue(this.op2);
-        }
+        let op1Word = this.getRMWord(system, this.op1);
+        let op2Word = this.getRMIWord(system, this.op2);
 
         // overwirte each destination with sum of op1Word and op2Word
         this.dest.forEach((dest) => { 
-            let destWord = this.getRegValue(system, dest);
+            let destWord = this.getRMWord(system, dest);
             // set result word
             destWord.set(op1Word.add(op2Word));
         });
@@ -234,39 +260,10 @@ export class SubInstruction extends InsperHackInstruction {
         '011': ['%D', '(%A)'],
         '111': ['%A', '%D', '(%A)'],
     };
-    createDestCodeFrom(args) {
-        let destCode = [0, 0, 0];
-        args = args.slice(1);
-        args.forEach(arg => {
-            if (arg === '%A') {
-                destCode[0] = 1;
-            }
-            if (arg === '%D') {
-                destCode[1] = 1;
-            }
-            if (arg === '(%A)') {
-                destCode[2] = 1;
-            }
-        });
-        return destCode.join('');
-    }
-    static matchesCode(code) {
-        let memoryBit = this.extractMemoryBit(code);
-        let opCode = this.extractOpCode(code);
 
-        return (memoryBit + opCode) in this.cCodeToArgs;
-    }
     static fromMachineCode(code) { 
-        let memoryBit = this.extractMemoryBit(code);
-        let opCode = this.extractOpCode(code);
-        let cCode = memoryBit + opCode;
-
-        let params = this.cCodeToArgs[cCode];
-        //console.log("alucode: " + params);
-        
-
-        let dests = this.cCodeToDests[this.extractDestCode(code)];
-
+        let params = this.matchCode(code);
+        let dests = this.matchDest(code);
         let args = params.concat(dests);
 
         return new SubInstruction(args);
@@ -276,9 +273,7 @@ export class SubInstruction extends InsperHackInstruction {
         // setup instruction code
         let code = '111';
         // get opCode and append
-        let opCode = this.argsToCcode[this.args[0]];
-        console.log("opCode: " + opCode);
-        
+        let opCode = this.argsToCcode[this.args[0]];   
         code += opCode;
         // append params and destinations
         code += this.noJump(this.createDestCodeFrom(this.args));
@@ -286,33 +281,13 @@ export class SubInstruction extends InsperHackInstruction {
     }
 
     executeOn(system) {
-        // operand 1 reg/mem
-        let op1Word;
-        if (this.isMemoryAccess(this.op1)) {
-            op1Word = this.getMemoryAddress(system);
-        } else {
-            op1Word = this.getRegValue(system, this.op1);
-        }
-
-        // operand 2 reg/mem/im
-        let op2Word;
-        if (this.isMemoryAccess(this.op2)) {
-            op2Word = this.getMemoryAddress(system);
-        } else if (this.op2.startsWith('%'))  { 
-            op2Word = this.getRegValue(system, this.op2);
-        } else { 
-            op2Word = this.getImmediateValue(this.op2);
-        }
+        let op1Word = this.getRMWord(system, this.op1);
+        let op2Word = this.getRMIWord(system, this.op2);
 
         // overwirte each destination with substract of op1Word and op2Word
         this.dest.forEach((dest) => { 
             // destinations one of mem/reg
-            let destWord;
-            if (this.isMemoryAccess(dest)) {
-                destWord = this.getMemoryAddress(system);
-            } else {
-                destWord = this.getRegValue(system, dest);
-            }
+            let destWord = this.getRMWord(system, dest);
             // set result word
             destWord.set(op1Word.subtract(op2Word));
         });
