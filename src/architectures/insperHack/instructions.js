@@ -41,6 +41,14 @@ export class InsperHackInstructionFactory {
             case '1010011': // M-D
                 return SubInstruction.fromMachineCode(code);
             // …
+            case '0000000': // D&A
+                return AndInstruction.fromMachineCode(code);
+            case '1000000': // M&D
+                return AndInstruction.fromMachineCode(code);
+            case '0010101': // D|A
+                return OrInstruction.fromMachineCode(code);
+            case '1010101': // M|D
+                return OrInstruction.fromMachineCode(code);
             default:
               break;
           }
@@ -154,6 +162,20 @@ export class TwoOpInstruction extends InsperHackInstruction {
         });
         return destCode.join('');
     }
+    // matches single dest to code
+    argsToDestCode(arg) {
+        let destCode = [0, 0, 0];
+        if (arg === '%A') {
+            destCode[0] = 1;
+        }
+        if (arg === '%D') {
+            destCode[1] = 1;
+        }
+        if (arg === '(%A)') {
+            destCode[2] = 1;
+        }
+        return destCode.join('');
+    }
     // gets the word of the operand which supposed to be reg or mem
     getRMWord(system, op) { // reg/mem
         let opWord;
@@ -232,7 +254,7 @@ export class AddInstruction extends TwoOpInstruction {
     }
 }
 
-export class SubInstruction extends InsperHackInstruction {
+export class SubInstruction extends TwoOpInstruction {
     static cCodeToArgs = {
         '0101010': ['$0'],
         '0111111': ['$1'],
@@ -294,10 +316,99 @@ export class SubInstruction extends InsperHackInstruction {
     }
 }
 
+export class RsubInstruction extends TwoOpInstruction {
+
+}
+
+export class AndInstruction extends TwoOpInstruction {
+    static cCodeToArgs = {
+        '0000000': ['%A', '%D'],
+        '1000000': ['(%A)', '%D']
+    };
+    argsToCcode = {
+        '%D': ['0000000', '1000000'], //a+c Code
+        '%A': '0000000',
+        '(%A)': '1000000'
+    };
+    
+    static fromMachineCode(code) { 
+        let params = this.matchCode(code);
+        let dests = this.matchDest(code);
+        let args = params.concat(dests);
+
+        return new AndInstruction(args);
+    }
+
+    toMachineCode() {
+        // setup instruction code
+        let code = '111';
+        // get opCode and append
+        let opCode = this.argsToCcode[this.args[0]];
+        code += opCode;
+        // append params and destinations
+        code += this.noJump(this.argsToDestCode(this.args[1]));
+        return code;
+    }
+
+    executeOn(system) {
+        let op1Word = this.getRMWord(system, this.op1);
+        let op2Word = this.getRMWord(system, this.op2);
+
+        // overwirte destination with and of op1Word and op2Word
+        let destWord = this.getRMWord(system, this.dest); // only one given destination
+        // set result word
+        destWord.set(op1Word.and(op2Word));
+    }
+}
+
+export class OrInstruction extends TwoOpInstruction {
+    static cCodeToArgs = {
+        '0010101': ['%A', '%D'],
+        '1000000': ['(%A)', '%D']
+    };
+    argsToCcode = {
+        '%D': ['0010101', '1010101'], //a+c Code
+        '%A': '0010101',
+        '(%A)': '1010101'
+    };
+    
+    static fromMachineCode(code) { 
+        let params = this.matchCode(code);
+        let dests = this.matchDest(code);
+        let args = params.concat(dests);
+
+        return new OrInstruction(args);
+    }
+
+    toMachineCode() {
+        // setup instruction code
+        let code = '111';
+        // get opCode and append
+        let opCode = this.argsToCcode[this.args[0]];
+        code += opCode;
+        // append params and destinations
+        code += this.noJump(this.argsToDestCode(this.args[1]));
+        return code;
+    }
+
+    executeOn(system) {
+        let op1Word = this.getRMWord(system, this.op1);
+        let op2Word = this.getRMWord(system, this.op2);
+
+        // overwirte destination with or of op1Word and op2Word
+        let destWord = this.getRMWord(system, this.dest); // only one given destination
+        // set result word
+        destWord.set(op1Word.or(op2Word));
+    }
+}
+
 
 
 const mnemonicToClass = {
     'add': AddInstruction,
     'sub': SubInstruction,
+    'rsub': RsubInstruction,
+    'and': AndInstruction,
+    'or': OrInstruction,
 };
 
