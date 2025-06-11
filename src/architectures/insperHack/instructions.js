@@ -1,4 +1,3 @@
-import { MovInstruction } from "../insperHack/instructions";
 import { BaseInstruction } from "../instructions";
 import {Word} from "../system";
 
@@ -7,11 +6,9 @@ export class InsperHackInstructionFactory {
         let instructionClass = this.getInstructionClassByMnemonic(mnemonic);
         return new instructionClass(args);
     }
-
     getInstructionClassByMnemonic(mnemonic) {
         return mnemonicToClass[mnemonic];
     }
-
     createFromOpCode(memory, address) {
         const code = memory[address].toBitString();
 
@@ -32,14 +29,11 @@ export class InsperHackInstructionFactory {
             case '0110000':
               return MovInstruction.fromMachineCode(code);
             case '1110000':
-            return MovInstruction.fromMachineCode(code);
-            // …
+                return MovInstruction.fromMachineCode(code);
             default:
               break;
           }
-    
     }
-    
     getInstructionClassByOpCode(opCode) {
         // find class c with identical opCode
         return mnemonicToClass.filter((c) => c.opCode === opCode)[0];
@@ -56,7 +50,6 @@ export class InsperHackInstruction extends BaseInstruction {
     get dest() {
         return this.args.slice(2);
     }
-
     static extractMemoryBit(code) {
         return code.slice(3, 4);
     }
@@ -69,14 +62,6 @@ export class InsperHackInstruction extends BaseInstruction {
     static extractJumpCode(code){
         return code.slice(13, 16);
     }
-
-    static extractDestArgs(code) {
-        pass
-    }
-
-    createDestCode(args) {
-        pass
-    }
     // append 000 for no jump operations
     noJump(code) {
         code += "000";
@@ -85,20 +70,17 @@ export class InsperHackInstruction extends BaseInstruction {
     getRegValue(system, operand) {
         return system.registers[operand];
     }
-
     getMemoryAddress(system) {
         // get value of Memory
         let address = system.registers['%A'].toUnsignedIntValue();
         // set value
         return system.memory[address];
     }
-
     getImmediateValue(operand) {
         //turns immediate into a number - then a Word
         let imm = parseInt(operand.slice(1));
         return Word.fromSignedIntValue(imm);
     }
-
     isMemoryAccess(param) {
         return param.startsWith('(');
     }
@@ -165,7 +147,6 @@ export class MovInstruction extends InsperHackInstruction {
 
         return new MovInstruction(args);
     }
-
     toMachineCode() {
         // setup instruction code
         let code = '111';
@@ -177,8 +158,7 @@ export class MovInstruction extends InsperHackInstruction {
 
         return code;
     }
-
-    executeOn(system) { // IN-PROGRESS
+    executeOn(system) {
         // operand 1 reg/mem/im
         let op1Word;
         if (this.isMemoryAccess(this.op1)) {
@@ -207,17 +187,10 @@ export class MovInstruction extends InsperHackInstruction {
         });
     }
 }
-export class NopInstruction extends InsperHackInstruction {
-    static matchesCode(code) {
-        let destCode = InsperHackInstruction.extractDestCode(code);
-        let jumpCode = InsperHackInstruction.extractJumpCode(code);
 
-        return (destCode === "000" && jumpCode === "000");
-    }
-}
+
 
 const mnemonicToClass = {
     'mov': MovInstruction,
-    'nop': NopInstruction,
 };
 
