@@ -1,10 +1,11 @@
 export const toolbox = {
     kind: "categoryToolbox",
     contents: [
+
         {
             kind: "category",
-            name: "Control Flow",
-            colour: "240",
+            name: "Instruction Set 1",
+            colour: "195",
             contents: [
                 {
                     kind: "block",
@@ -16,60 +17,168 @@ export const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "bez",
+                    type: "out",
                     inputs: {
-                        rd: {
+                        register: {
                             shadow: {
-                                type: "r0",
-                            },
+                                type: "%D"
+                            }
                         },
-                        label: {
-                            shadow: {
-                                type: "label",
-                            },
-                        },
-                    },
+                    }
                 },
                 {
                     kind: "block",
-                    type: "bgz",
+                    type: "store",
                     inputs: {
-                        rd: {
+                        register1: {
                             shadow: {
-                                type: "r0",
-                            },
+                                type: "%A"
+                            }
                         },
-                        label: {
+                        register2: {
                             shadow: {
-                                type: "label",
-                            },
+                                type: "%A"
+                            }
                         },
-                    },
+                        register3: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                        register4: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                        register5: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
-                    type: "jalr",
+                    type: "inc",
                     inputs: {
-                        rs: {
+                        register1: {
                             shadow: {
-                                type: "r7",
-                            },
+                                type: "%A"
+                            }
                         },
-                        label: {
-                            shadow: {
-                                type: "label",
-                            },
-                        },
-                    },
+                    }
                 },
                 {
                     kind: "block",
-                    type: "labelDef",
+                    type: "dec",
+                    inputs: {
+                        register1: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "neg",
+                    inputs: {
+                        register1: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "not",
+                    inputs: {
+                        register1: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "%A",
+                },
+                {
+                    kind: "block",
+                    type: "%D",
+                },
+                {
+                    kind: "block",
+                    type: "(%A)",
+                },
+                {
+                    kind: "block",
+                    type: "lea",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "mov",
+                    inputs: {
+                        value: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                        register: {
+                            shadow: {
+                                type: "%D"
+                            }
+                        },
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "condition",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                    }
+                },
+
+            ],
+        },
+        {
+            kind: "category",
+            name: "Label",
+            colour: "285",
+            contents: [
+                {
+                    kind: "block",
+                    type: "cond_label",
+                    inputs: {
+                        
+                    }
                 },
                 {
                     kind: "block",
                     type: "label",
                 },
+                {
+                    kind: "block",
+                    type: "do_if",
+                },
+                {
+                    kind: "block",
+                    type: "if_do",
+                },
+
             ],
         },
     ],
