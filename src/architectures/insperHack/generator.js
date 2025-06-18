@@ -153,6 +153,15 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
                 case "minus":
                     op = "neg"
                     break
+                case "not":
+                    op = "not"
+                    break
+                case "invert":
+                    op = "not"
+                    break
+                case "!":
+                    op = "not"
+                    break
                 default:
                     op = "[operator]"
                     break
@@ -173,6 +182,18 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
                     break
                 case "!":
                     op = "not"
+                    break
+                case "neg":
+                    op = "neg"
+                    break
+                case "negation":
+                    op = "neg"
+                    break
+                case "-":
+                    op = "neg"
+                    break
+                case "minus":
+                    op = "neg"
                     break
                 default:
                     op = "[operator]"
@@ -300,25 +321,25 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             const text = block.getFieldValue("name")
             const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
 
-            return `${text}: ${value}`
+            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
         }
         this.generator.forBlock["do_if"] = (block) => {
             const text = block.getFieldValue("name")
             const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
 
-            return `${text}: ${value}`
+            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
         }
         this.generator.forBlock["if_do"] = (block) => {
             const text = block.getFieldValue("name")
             const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
 
-            return `${text}: ${value}`
+            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
         }
         this.generator.forBlock["label"] = (block) => {
             const text = block.getFieldValue("name")
             const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
 
-            return `${text}: ${value}`
+            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
         }
     }
 }

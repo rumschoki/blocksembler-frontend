@@ -163,7 +163,7 @@ export const toolbox = {
                     kind: "block",
                     type: "cond_label",
                     inputs: {
-                        
+                        // TO-DO: set condition block [ %A=0 ] as default block
                     }
                 },
                 {
