@@ -209,6 +209,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             let cond;
             switch (operand) {
                 // equal
+                // TO-DO: only jmp when register is A
                 case "=":
                     cond = "mp"
                     break
