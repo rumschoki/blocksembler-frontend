@@ -12,21 +12,23 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             return ""
         }
         this.generator.forBlock["halt"] = (_block, _generator) => {
-            return ".halt";
-        };
+            return ".halt"
+        }
         this.generator.forBlock["out"] = (block) => {
-            const register = this.generator.valueToCode(block, "register", Order.ATOMIC);
+            const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
 
-            return `out ${register}`;
-        };
+            return `out ${register}`
+        }
 
         // Instruction Set 1
+        // lea
         this.generator.forBlock["lea"] = (block) => {
             const constant = block.getFieldValue("constant")
             const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
 
             return `lea $${constant} ${register}`
         }
+        // mov
         this.generator.forBlock["mov"] = (block) => {
             const value = this.generator.valueToCode(block, "value", Order.ATOMIC)
             const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
@@ -35,6 +37,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         }
 
         // Operations
+        // add, sub, inc, dec, neg, not
         this.generator.forBlock["store"] = (block) => {
             const register1 = this.generator.valueToCode(block, "register1", Order.ATOMIC)
             const register2 = this.generator.valueToCode(block, "register2", Order.ATOMIC)
@@ -78,7 +81,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             const register1 = this.generator.valueToCode(block, "register1", Order.ATOMIC)
             const operation = block.getFieldValue("operation")
 
-            let op;
+            let op
             switch (operation) {
                 case "inc":
                     op = "inc"
@@ -109,7 +112,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             const register1 = this.generator.valueToCode(block, "register1", Order.ATOMIC)
             const operation = block.getFieldValue("operation")
 
-            let op;
+            let op
             switch (operation) {
                 case "inc":
                     op = "inc"
@@ -139,7 +142,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         this.generator.forBlock["neg"] = (block) => {
             const register1 = this.generator.valueToCode(block, "register1", Order.ATOMIC)
             const operation = block.getFieldValue("operation")
-            let op;
+            let op
             switch (operation) {
                 case "neg":
                     op = "neg"
@@ -172,7 +175,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         this.generator.forBlock["not"] = (block) => {
             const register1 = this.generator.valueToCode(block, "register1", Order.ATOMIC)
             const operation = block.getFieldValue("operation")
-            let op;
+            let op
             switch (operation) {
                 case "not":
                     op = "not"
@@ -203,10 +206,11 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             return `${op} ${register1}`
         }
 
-        this.generator.forBlock['condition'] = (block) => {
-            const register = this.generator.valueToCode(block, 'register', Order.ATOMIC);
-            const operand = block.getFieldValue('operand');
-            let cond;
+        // Condition
+        this.generator.forBlock["condition"] = (block) => {
+            const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
+            const operand = block.getFieldValue("operand")
+            let cond
             switch (operand) {
                 // equal
                 // TO-DO: only jmp when register is A
@@ -294,18 +298,16 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
                     break
             }
 
-            const code = `j${cond} ${register}`;
-            return [code, Order.ATOMIC];
+            const code = `j${cond} ${register}`
+            return [code, Order.ATOMIC]
         }
 
-
         // Registers
-        
         this.generator.forBlock["register"] = (block, _generator) => {
-            const register = block.getFieldValue("register");
+            const register = block.getFieldValue("register")
 
-            return [`${register}`, Order.ATOMIC];
-        };
+            return [`${register}`, Order.ATOMIC]
+        }
         const generateRegister = (block, _generator) => {
             return [block.type, Order.ATOMIC]
         }
@@ -313,9 +315,6 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         this.generator.forBlock["%A"] = generateRegister
         this.generator.forBlock["%D"] = generateRegister
         this.generator.forBlock["(%A)"] = generateRegister
-
-        // Instruction Set 2
-
 
         // Label
         this.generator.forBlock["cond_label"] = (block) => {
