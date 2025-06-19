@@ -1,24 +1,50 @@
 export const toolbox = {
     kind: "categoryToolbox",
     contents: [
-
         {
             kind: "category",
-            name: "Instruction Set 1",
+            name: "Registers",
+            colour: "100",
+            contents: [
+                {
+                    kind: "block",
+                    type: "%A",
+                },
+                {
+                    kind: "block",
+                    type: "%D",
+                },
+                {
+                    kind: "block",
+                    type: "(%A)",
+                },
+            ],
+        },
+        {
+            kind: "category",
+            name: "Operations",
             colour: "195",
             contents: [
                 {
                     kind: "block",
-                    type: "start",
-                },
-                {
-                    kind: "block",
-                    type: "halt",
-                },
-                {
-                    kind: "block",
-                    type: "out",
+                    type: "lea",
                     inputs: {
+                        register: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "mov",
+                    inputs: {
+                        value: {
+                            shadow: {
+                                type: "%A"
+                            }
+                        },
                         register: {
                             shadow: {
                                 type: "%D"
@@ -101,38 +127,22 @@ export const toolbox = {
                         },
                     }
                 },
+
+            ],
+        },
+        {
+            kind: "category",
+            name: "Control flow",
+            colour: "45",
+            contents: [
                 {
                     kind: "block",
-                    type: "%A",
+                    type: "start",
                 },
                 {
                     kind: "block",
-                    type: "%D",
-                },
-                {
-                    kind: "block",
-                    type: "(%A)",
-                },
-                {
-                    kind: "block",
-                    type: "lea",
+                    type: "out",
                     inputs: {
-                        register: {
-                            shadow: {
-                                type: "%A"
-                            }
-                        },
-                    }
-                },
-                {
-                    kind: "block",
-                    type: "mov",
-                    inputs: {
-                        value: {
-                            shadow: {
-                                type: "%A"
-                            }
-                        },
                         register: {
                             shadow: {
                                 type: "%D"
@@ -140,6 +150,17 @@ export const toolbox = {
                         },
                     }
                 },
+                {
+                    kind: "block",
+                    type: "halt",
+                },
+            ],
+        },
+        {
+            kind: "category",
+            name: "Label",
+            colour: "285",
+            contents: [
                 {
                     kind: "block",
                     type: "condition",
@@ -151,14 +172,6 @@ export const toolbox = {
                         },
                     }
                 },
-
-            ],
-        },
-        {
-            kind: "category",
-            name: "Label",
-            colour: "285",
-            contents: [
                 {
                     kind: "block",
                     type: "cond_label",

@@ -1,12 +1,12 @@
 import { InsperHackEmulator } from "@/architectures/insperHack/system.js"
-import { setupBlocklyBlocks } from "@/architectures/insperHack/blocks.js"
-import { toolbox } from "@/architectures/insperHack/toolbox.js"
-import { InsperHackBlocklyGenerator } from "@/architectures/insperHack/generator.js"
+import { setupBlocklyBlocks } from "@/architectures/insperHack/instructionset1/blocks.js"
+import { toolbox } from "@/architectures/insperHack/instructionset1/toolbox.js"
+import { InsperHackBlocklyGenerator } from "@/architectures/insperHack/instructionset1/generator.js"
 import { InsperHackAssemblyParser } from "@/architectures/insperHack/parser.js"
 import { InsperHackCodeFormatter } from "@/architectures/insperHack/formatter.js"
 
 export default {
-    name: "insperHack",
+    name: "insperHack1",
     fileExtension: "asm",
     parser: new InsperHackAssemblyParser(),
     emulator: new InsperHackEmulator(),
