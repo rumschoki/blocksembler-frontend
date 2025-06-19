@@ -2,7 +2,7 @@ import { BaseBlocklyGenerator, Order } from "@/architectures/generator.js"
 
 export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
     constructor() {
-        super("insperHack")
+        super("insperHack2")
     }
 
     setupGenerator() {

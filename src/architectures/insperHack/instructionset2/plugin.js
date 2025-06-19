@@ -1,7 +1,7 @@
 import { InsperHackEmulator } from "@/architectures/insperHack/system.js"
-import { setupBlocklyBlocks } from "@/architectures/insperHack/instructionset1/blocks.js"
-import { toolbox } from "@/architectures/insperHack/instructionset1/toolbox.js"
-import { InsperHackBlocklyGenerator } from "@/architectures/insperHack/instructionset1/generator.js"
+import { setupBlocklyBlocks } from "@/architectures/insperHack/instructionset2/blocks.js"
+import { toolbox } from "@/architectures/insperHack/instructionset2/toolbox.js"
+import { InsperHackBlocklyGenerator } from "@/architectures/insperHack/instructionset2/generator.js"
 import { InsperHackAssemblyParser } from "@/architectures/insperHack/parser.js"
 import { InsperHackCodeFormatter } from "@/architectures/insperHack/formatter.js"
 
