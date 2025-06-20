@@ -38,6 +38,250 @@ export const setupBlocklyBlocks = () =>
         },
 
         {
+            type: "%A",
+            message0: "%A",
+            output: "register",
+            colour: 100,
+            tooltip: "register A",
+            helpUrl: "",
+        },
+        {
+            type: "%D",
+            message0: "%D",
+            output: "register",
+            colour: 100,
+            tooltip: "register D",
+            helpUrl: "",
+        },
+        {
+            type: "(%A)",
+            message0: "(%A)",
+            output: "register",
+            colour: 100,
+            tooltip: "register M",
+            helpUrl: "",
+        },
+
+        {
+            type: "lea",
+            tooltip: "loads address/value into register %A",
+            helpUrl: "",
+            message0: "load %1 %2 %3 into %4",
+            args0: [
+                {
+                    type: "input_dummy",
+                    name: "text1",
+                },
+                {
+                    type: "field_input",
+                    name: "constant",
+                    text: "0",
+                },
+                {
+                    type: "input_dummy",
+                    name: "constant",
+                },
+                {
+                    type: "input_value",
+                    name: "register",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 225,
+            inputsInline: true,
+        },
+        {
+            type: "mov",
+            tooltip: "copy value to destination",
+            helpUrl: "",
+            message0: "copy %1 %2 into %3",
+            args0: [
+                {
+                    type: "input_dummy",
+                    name: "text1",
+                },
+                {
+                    type: "input_value",
+                    name: "value",
+                },
+                {
+                    type: "input_value",
+                    name: "register",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 225,
+            inputsInline: true,
+        },
+
+        {
+            type: "add",
+            tooltip: "adds two operands and stores result to registers",
+            helpUrl: "",
+            message0: "add %1 and %2 and store to %3 , %4 , %5 %6",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+                {
+                    type: "input_value",
+                    name: "reg2",
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg3",
+                    options: [
+                        ["%D", "%D"],
+                        ["%A", "%A"],
+                        ["(%A)", "(%A)"],
+                        ["none", "none"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg4",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg5",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "input_dummy",
+                    name: "register",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
+            inputsInline: true,
+        },
+
+        {
+            type: "sub",
+            tooltip: "subtracts two operands and stores result to registers",
+            helpUrl: "",
+            message0: "sub %1 and %2 and store to %3 , %4 , %5 %6",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+                {
+                    type: "input_value",
+                    name: "reg2",
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg3",
+                    options: [
+                        ["%D", "%D"],
+                        ["%A", "%A"],
+                        ["(%A)", "(%A)"],
+                        ["none", "none"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg4",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg5",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "input_dummy",
+                    name: "register",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
+            inputsInline: true,
+        },
+
+        {
+            type: "and",
+            tooltip: "ands two operands and stores result to registers",
+            helpUrl: "",
+            message0: "and %1 and %2 and store to %3 , %4 , %5 %6",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+                {
+                    type: "input_value",
+                    name: "reg2",
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg3",
+                    options: [
+                        ["%D", "%D"],
+                        ["%A", "%A"],
+                        ["(%A)", "(%A)"],
+                        ["none", "none"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg4",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg5",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "input_dummy",
+                    name: "register",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
+            inputsInline: true,
+        },
+
+        {
             type: "condition",
             tooltip: "",
             helpUrl: "",
@@ -62,6 +306,129 @@ export const setupBlocklyBlocks = () =>
             ],
             output: null,
             colour: 250,
+            inputsInline: true,
+        },
+
+        {
+            type: "or",
+            tooltip: "ors two operands and stores result to registers",
+            helpUrl: "",
+            message0: "or %1 and %2 and store to %3 , %4 , %5 %6",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+                {
+                    type: "input_value",
+                    name: "reg2",
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg3",
+                    options: [
+                        ["%D", "%D"],
+                        ["%A", "%A"],
+                        ["(%A)", "(%A)"],
+                        ["none", "none"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg4",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "field_dropdown",
+                    name: "reg5",
+                    options: [
+                        ["none", "none"],
+                        ["%A", "%A"],
+                        ["%D", "%D"],
+                        ["(%A)", "(%A)"],
+                    ],
+                },
+                {
+                    type: "input_dummy",
+                    name: "register",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
+            inputsInline: true,
+        },
+
+        {
+            type: "inc",
+            tooltip: "increments register and stores result to itself",
+            helpUrl: "",
+            message0: "inc %1 and store",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
+            inputsInline: true,
+        },
+
+        {
+            type: "dec",
+            tooltip: "decrements register and stores result to itself",
+            helpUrl: "",
+            message0: "dec %1 and store",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
+            inputsInline: true,
+        },
+
+        {
+            type: "not",
+            tooltip: "inverts register and stores result to itself",
+            helpUrl: "",
+            message0: "not %1 and store",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
+            inputsInline: true,
+        },
+
+        {
+            type: "neg",
+            tooltip: "negates register and stores result to itself",
+            helpUrl: "",
+            message0: "neg %1 and store",
+            args0: [
+                {
+                    type: "input_value",
+                    name: "reg1",
+                },
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 195,
             inputsInline: true,
         },
 

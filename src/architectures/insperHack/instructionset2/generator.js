@@ -5,9 +5,19 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         super("insperHack2")
     }
 
+    getDest(reg) {
+            if (reg == 'none') {
+                return ''
+            }
+            else {
+                return reg
+            }
+        }
+
     setupGenerator() {
         super.setupGenerator()
 
+        // Control flow
         this.generator.forBlock["start"] = (_block, _generator) => {
             return ""
         }
@@ -21,16 +31,117 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         }
 
         // Instruction Set 2
-        //lea
-        //mov
+        // lea
+        this.generator.forBlock["lea"] = (block) => {
+            const constant = block.getFieldValue("constant")
+            const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
+
+            return `lea $${constant} ${register}`
+        }
+        // mov
+        this.generator.forBlock["mov"] = (block) => {
+            const value = this.generator.valueToCode(block, "value", Order.ATOMIC)
+            const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
+
+            return `mov ${value} ${register}`
+        }
 
         // Operations
         // add
+        this.generator.forBlock['add'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+            const reg2 = this.generator.valueToCode(block, 'reg2', Order.ATOMIC);
+            const reg3 = block.getFieldValue('reg3');
+            const reg4 = block.getFieldValue('reg4');
+            const reg5 = block.getFieldValue('reg5');
+
+            let dest1 = this.getDest(reg3)
+            let dest2 = this.getDest(reg4)
+            let dest3 = this.getDest(reg5)
+
+            return `add ${reg1} ${reg2} ${dest1} ${dest2} ${dest3}`
+        }
         // sub
+        this.generator.forBlock['sub'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+            const reg2 = this.generator.valueToCode(block, 'reg2', Order.ATOMIC);
+            const reg3 = block.getFieldValue('reg3');
+            const reg4 = block.getFieldValue('reg4');
+            const reg5 = block.getFieldValue('reg5');
+
+            let dest1 = this.getDest(reg3)
+            let dest2 = this.getDest(reg4)
+            let dest3 = this.getDest(reg5)
+
+            return `sub ${reg1} ${reg2} ${dest1} ${dest2} ${dest3}`
+        }
+        // and 
+        this.generator.forBlock['and'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+            const reg2 = this.generator.valueToCode(block, 'reg2', Order.ATOMIC);
+            const reg3 = block.getFieldValue('reg3');
+            const reg4 = block.getFieldValue('reg4');
+            const reg5 = block.getFieldValue('reg5');
+
+            let dest1 = this.getDest(reg3)
+            let dest2 = this.getDest(reg4)
+            let dest3 = this.getDest(reg5)
+
+            return `and ${reg1} ${reg2} ${dest1} ${dest2} ${dest3}`
+        }
+        // or
+        this.generator.forBlock['or'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+            const reg2 = this.generator.valueToCode(block, 'reg2', Order.ATOMIC);
+            const reg3 = block.getFieldValue('reg3');
+            const reg4 = block.getFieldValue('reg4');
+            const reg5 = block.getFieldValue('reg5');
+
+            let dest1 = this.getDest(reg3)
+            let dest2 = this.getDest(reg4)
+            let dest3 = this.getDest(reg5)
+
+            return `or ${reg1} ${reg2} ${dest1} ${dest2} ${dest3}`
+        }
         // inc
+        this.generator.forBlock['inc'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+
+            return `inc ${reg1}`
+        }
         // dec
+        this.generator.forBlock['dec'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+
+            return `dec ${reg1}`
+        }
         // neg
+        this.generator.forBlock['neg'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+
+            return `neg ${reg1}`
+        }
         // not
+        this.generator.forBlock['not'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+
+            return `not ${reg1}`
+        }
+
+
+        // Registers
+        this.generator.forBlock["register"] = (block, _generator) => {
+            const register = block.getFieldValue("register")
+
+            return [`${register}`, Order.ATOMIC]
+        }
+        const generateRegister = (block, _generator) => {
+            return [block.type, Order.ATOMIC]
+        }
+
+        this.generator.forBlock["%A"] = generateRegister
+        this.generator.forBlock["%D"] = generateRegister
+        this.generator.forBlock["(%A)"] = generateRegister
 
         // Condition
         this.generator.forBlock["condition"] = (block) => {
