@@ -229,7 +229,7 @@ export const toolbox = {
                         },
                     },    
                     fields: {
-                        operand: "=",
+                        operand: "je",
                     }                
                 },
                 {
@@ -243,7 +243,7 @@ export const toolbox = {
                         },
                     },    
                     fields: {
-                        operand: "!=",
+                        operand: "jne",
                     }                
                 },
                 {
@@ -257,7 +257,7 @@ export const toolbox = {
                         },
                     },    
                     fields: {
-                        operand: "<",
+                        operand: "jl",
                     }                
                 },
                 {
@@ -271,7 +271,7 @@ export const toolbox = {
                         },
                     },    
                     fields: {
-                        operand: ">",
+                        operand: "jg",
                     }                
                 },
                 {
@@ -285,7 +285,7 @@ export const toolbox = {
                         },
                     },    
                     fields: {
-                        operand: "<=",
+                        operand: "jle",
                     }                
                 },
                 {
@@ -299,7 +299,7 @@ export const toolbox = {
                         },
                     },    
                     fields: {
-                        operand: ">=",
+                        operand: "jge",
                     }                
                 },
                 {

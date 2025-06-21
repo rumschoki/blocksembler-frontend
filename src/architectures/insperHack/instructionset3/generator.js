@@ -97,39 +97,14 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         this.generator.forBlock["condition"] = (block) => {
             const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
             const operand = block.getFieldValue("operand")
-            let cond
-            switch (operand) {
-                // equal
-                // TO-DO: only jmp when register is A
-                case "=":
-                    cond = "mp"
-                    break
-                // not equal
-                case "!=":
-                    cond = "ne"
-                    break
-                // lower
-                case "<":
-                    cond = "l"
-                    break
-                // lower equal
-                case "<=":
-                    cond = "le"
-                    break
-                // greater
-                case ">":
-                    cond = "g"
-                    break
-                // greater equal
-                case ">=":
-                    cond = "ge"
-                    break
-                default:
-                    cond = "[condition]"
-                    break
-            }
+            let code;
 
-            const code = `j${cond} ${register}`
+            if (register === "%A" && operand === "je") {
+                code = `jmp ${register}`
+            } else {
+                code = `${operand} ${register}`
+            }            
+
             return [code, Order.ATOMIC]
         }
 
