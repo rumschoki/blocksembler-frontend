@@ -243,6 +243,20 @@ export const toolbox = {
                         },
                     },    
                     fields: {
+                        operand: "!=",
+                    }                
+                },
+                {
+                    kind: "block",
+                    type: "condition",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },    
+                    fields: {
                         operand: "<",
                     }                
                 },

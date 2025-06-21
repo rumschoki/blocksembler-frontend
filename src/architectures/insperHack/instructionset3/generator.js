@@ -104,80 +104,24 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
                 case "=":
                     cond = "mp"
                     break
-                case "e":
-                    cond = "mp"
-                    break
-                case "is":
-                    cond = "mp"
-                    break
-                case "equal":
-                    cond = "mp"
-                    break
-                case "equals":
-                    cond = "mp"
-                    break
                 // not equal
                 case "!=":
                     cond = "ne"
                     break
-                case "ne":
-                    cond = "ne"
-                    break
-                case "is not equal":
-                    cond = "ne"
-                    break
-                case "is not equal to":
-                    cond = "ne"
-                    break
-                case "not equal to":
-                    cond = "ne"
                 // lower
                 case "<":
-                    cond = "l"
-                    break
-                case "smaller":
-                    cond = "l"
-                    break
-                case "smaller than":
                     cond = "l"
                     break
                 // lower equal
                 case "<=":
                     cond = "le"
                     break
-                case "le":
-                    cond = "le"
-                    break
-                case "smaller":
-                    cond = "le"
-                    break
                 // greater
                 case ">":
                     cond = "g"
                     break
-                case "g":
-                    cond = "g"
-                    break
-                case "greater":
-                    cond = "g"
-                    break
-                case "greater than":
-                    cond = "g"
-                    break
-                case "bigger than":
-                    cond = "g"
-                    break
-                case "bigger":
-                    cond = "g"
-                    break
                 // greater equal
                 case ">=":
-                    cond = "ge"
-                    break
-                case "ge":
-                    cond = "ge"
-                    break
-                case "greater equal":
                     cond = "ge"
                     break
                 default:
