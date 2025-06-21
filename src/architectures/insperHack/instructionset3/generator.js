@@ -63,29 +63,19 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
 
             return `${operation} ${reg1} ${reg2} ${dest1} ${dest2} ${dest3}`
         }
-        // inc
-        this.generator.forBlock['inc'] = (block) => {
+        // inc/dec
+        this.generator.forBlock['inc/dec'] = (block) => {
             const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+            const operation = block.getFieldValue('operator')
 
-            return `inc ${reg1}`
+            return `${operation} ${reg1}`
         }
-        // dec
-        this.generator.forBlock['dec'] = (block) => {
+        // neg/not
+        this.generator.forBlock['not/neg'] = (block) => {
             const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+            const operation = block.getFieldValue('operator')
 
-            return `dec ${reg1}`
-        }
-        // neg
-        this.generator.forBlock['neg'] = (block) => {
-            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
-
-            return `neg ${reg1}`
-        }
-        // not
-        this.generator.forBlock['not'] = (block) => {
-            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
-
-            return `not ${reg1}`
+            return `${operation} ${reg1}`
         }
 
 

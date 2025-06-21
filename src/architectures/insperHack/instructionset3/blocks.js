@@ -129,24 +129,24 @@ export const setupBlocklyBlocks = () =>
                 {
                 "type": "field_dropdown",
                 "name": "operator",
-                "options": [
-                    [
-                    "+",
-                    "add"
-                    ],
-                    [
-                    "-",
-                    "sub"
-                    ],
-                    [
-                    "&&",
-                    "and"
-                    ],
-                    [
-                    "||",
-                    "or"
+                    "options": [
+                        [
+                        "+",
+                        "add"
+                        ],
+                        [
+                        "-",
+                        "sub"
+                        ],
+                        [
+                        "&&",
+                        "and"
+                        ],
+                        [
+                        "||",
+                        "or"
+                        ]
                     ]
-                ]
                 },
                 {
                 "type": "input_dummy",
@@ -157,70 +157,70 @@ export const setupBlocklyBlocks = () =>
                 "name": "reg2"
                 },
                 {
-                "type": "field_dropdown",
-                "name": "reg3",
-                "options": [
-                    [
-                    "%A",
-                    "%A"
-                    ],
-                    [
-                    "%D",
-                    "%D"
-                    ],
-                    [
-                    "(%A)",
-                    "(%A)"
-                    ],
-                    [
-                    "none",
-                    "none"
+                    "type": "field_dropdown",
+                    "name": "reg3",
+                    "options": [
+                        [
+                        "%A",
+                        "%A"
+                        ],
+                        [
+                        "%D",
+                        "%D"
+                        ],
+                        [
+                        "(%A)",
+                        "(%A)"
+                        ],
+                        [
+                        "none",
+                        "none"
+                        ]
                     ]
-                ]
                 },
                 {
-                "type": "field_dropdown",
-                "name": "reg4",
-                "options": [
-                    [
-                    "none",
-                    "none"
-                    ],
-                    [
-                    "%A",
-                    "%A"
-                    ],
-                    [
-                    "%D",
-                    "%D"
-                    ],
-                    [
-                    "(%A)",
-                    "(%A)"
+                    "type": "field_dropdown",
+                    "name": "reg4",
+                    "options": [
+                        [
+                        "none",
+                        "none"
+                        ],
+                        [
+                        "%A",
+                        "%A"
+                        ],
+                        [
+                        "%D",
+                        "%D"
+                        ],
+                        [
+                        "(%A)",
+                        "(%A)"
+                        ]
                     ]
-                ]
                 },
                 {
-                "type": "field_dropdown",
-                "name": "reg5",
-                "options": [
-                    [
-                    "none",
-                    "none"
-                    ],
-                    [
-                    "%A",
-                    "%A"
-                    ],
-                    [
-                    "%D",
-                    "%D"
-                    ],
-                    [
-                    "(%A)",
-                    "(%A)"
+                    "type": "field_dropdown",
+                    "name": "reg5",
+                    "options": [
+                        [
+                        "none",
+                        "none"
+                        ],
+                        [
+                        "%A",
+                        "%A"
+                        ],
+                        [
+                        "%D",
+                        "%D"
+                        ],
+                        [
+                        "(%A)",
+                        "(%A)"
+                        ]
                     ]
-                ]
                 },
                 {
                 "type": "input_dummy",
@@ -235,14 +235,28 @@ export const setupBlocklyBlocks = () =>
                     
 
         {
-            type: "inc",
-            tooltip: "increments register and stores result to itself",
+            type: "inc/dec",
+            tooltip: "increments/decrements register and stores result to itself",
             helpUrl: "",
-            message0: "inc %1 and store",
+            message0: "store %1 %2",
             args0: [
                 {
                     type: "input_value",
                     name: "reg1",
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "operator",
+                    "options": [
+                        [
+                        "++",
+                        "inc"
+                        ],
+                        [
+                        "--",
+                        "dec"
+                        ],
+                    ]
                 },
             ],
             previousStatement: null,
@@ -252,55 +266,42 @@ export const setupBlocklyBlocks = () =>
         },
 
         {
-            type: "dec",
-            tooltip: "decrements register and stores result to itself",
-            helpUrl: "",
-            message0: "dec %1 and store",
-            args0: [
+            "type": "not/neg",
+            "tooltip": "increments/decrements register and stores result to itself",
+            "helpUrl": "",
+            "message0": "store %1 %2 %3",
+            "args0": [
                 {
-                    type: "input_value",
-                    name: "reg1",
+                "type": "field_dropdown",
+                "name": "operator",
+                "options": [
+                    [
+                    "!",
+                    "not"
+                    ],
+                    [
+                    "-",
+                    "neg"
+                    ]
+                ]
                 },
-            ],
-            previousStatement: null,
-            nextStatement: null,
-            colour: 195,
-            inputsInline: true,
-        },
-
-        {
-            type: "not",
-            tooltip: "inverts register and stores result to itself",
-            helpUrl: "",
-            message0: "not %1 and store",
-            args0: [
                 {
-                    type: "input_value",
-                    name: "reg1",
+                "type": "input_dummy",
+                "name": "operator"
                 },
-            ],
-            previousStatement: null,
-            nextStatement: null,
-            colour: 195,
-            inputsInline: true,
-        },
-
-        {
-            type: "neg",
-            tooltip: "negates register and stores result to itself",
-            helpUrl: "",
-            message0: "neg %1 and store",
-            args0: [
                 {
-                    type: "input_value",
-                    name: "reg1",
-                },
+                "type": "input_value",
+                "name": "reg1"
+                }
             ],
-            previousStatement: null,
-            nextStatement: null,
-            colour: 195,
-            inputsInline: true,
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 195,
+            "inputsInline": true
         },
+                    
+        
+                    
 
         {
             type: "condition",
@@ -316,9 +317,30 @@ export const setupBlocklyBlocks = () =>
                     name: "register",
                 },
                 {
-                    type: "field_input",
-                    name: "operand",
-                    text: "=",
+                "type": "field_dropdown",
+                "name": "operand",
+                "options": [
+                    [
+                    "=",
+                    "="
+                    ],
+                    [
+                    "<",
+                    "<"
+                    ],
+                    [
+                    ">",
+                    ">"
+                    ],
+                    [
+                    "<=",
+                    "<="
+                    ],
+                    [
+                    ">=",
+                    ">="
+                    ],
+                ]
                 },
                 {
                     type: "input_end_row",

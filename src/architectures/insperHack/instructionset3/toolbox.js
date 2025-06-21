@@ -67,49 +67,121 @@ export const toolbox = {
                             },
                         },
                     },
-                },
-                {
-                    kind: "block",
-                    type: "inc",
-                    inputs: {
-                        reg1: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
+                    fields: {
+                        operator: "add"
                     }
                 },
                 {
                     kind: "block",
-                    type: "dec",
+                    type: "store",
                     inputs: {
                         reg1: {
                             shadow: {
                                 type: "%A",
                             },
                         },
+                        reg2: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "sub"
                     }
                 },
                 {
                     kind: "block",
-                    type: "neg",
+                    type: "store",
                     inputs: {
                         reg1: {
                             shadow: {
                                 type: "%A",
                             },
                         },
+                        reg2: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "and"
                     }
                 },
                 {
                     kind: "block",
-                    type: "not",
+                    type: "store",
                     inputs: {
                         reg1: {
                             shadow: {
                                 type: "%A",
                             },
                         },
+                        reg2: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "or"
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "inc/dec",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "inc",
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "inc/dec",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "dec",
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "not/neg",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "not",
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "not/neg",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "neg",
                     }
                 },
             ],
@@ -158,6 +230,62 @@ export const toolbox = {
                     },    
                     fields: {
                         operand: "=",
+                    }                
+                },
+                {
+                    kind: "block",
+                    type: "condition",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },    
+                    fields: {
+                        operand: "<",
+                    }                
+                },
+                {
+                    kind: "block",
+                    type: "condition",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },    
+                    fields: {
+                        operand: ">",
+                    }                
+                },
+                {
+                    kind: "block",
+                    type: "condition",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },    
+                    fields: {
+                        operand: "<=",
+                    }                
+                },
+                {
+                    kind: "block",
+                    type: "condition",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },    
+                    fields: {
+                        operand: ">=",
                     }                
                 },
                 {
