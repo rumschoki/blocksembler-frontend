@@ -88,8 +88,33 @@ export const setupBlocklyBlocks = () =>
             ],
             previousStatement: null,
             nextStatement: null,
-            colour: 225,
+            colour: 150,
             inputsInline: true,
+        },
+        {
+            "type": "movi",
+            "tooltip": "load constant into register",
+            "helpUrl": "",
+            "message0": "load %1 %2 into %3",
+            "args0": [
+                {
+                "type": "field_input",
+                "name": "constant",
+                "text": "0"
+                },
+                {
+                "type": "input_dummy",
+                "name": "operator"
+                },
+                {
+                "type": "input_value",
+                "name": "reg1"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 150,
+            "inputsInline": true
         },
         {
             type: "mov",

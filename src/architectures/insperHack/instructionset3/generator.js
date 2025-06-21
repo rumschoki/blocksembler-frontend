@@ -38,6 +38,13 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
 
             return `lea $${constant} ${register}`
         }
+        // mov immediate
+        this.generator.forBlock["movi"] = (block) => {
+            const constant = block.getFieldValue("constant")
+            const reg1 = this.generator.valueToCode(block, "reg1", Order.ATOMIC)
+
+            return `mov $${constant} ${reg1}`
+        }
         // mov
         this.generator.forBlock["mov"] = (block) => {
             const value = this.generator.valueToCode(block, "value", Order.ATOMIC)
