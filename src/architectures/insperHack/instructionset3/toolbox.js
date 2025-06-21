@@ -226,9 +226,13 @@ export const toolbox = {
         },
         {
             kind: "category",
-            name: "Label",
+            name: "Labels & Conditions",
             colour: "285",
             contents: [
+                {
+                    kind: "label",
+                    text: "Conditions",
+                },
                 {
                     kind: "block",
                     type: "condition",
@@ -314,20 +318,62 @@ export const toolbox = {
                     }                
                 },
                 {
+                    kind: "label",
+                    text: "Labels",
+                },
+                {
                     kind: "block",
                     type: "conditional_label1",
-                    // TO-DO: set condition block [ %A=0 ] as default block
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 {
                     kind: "block",
                     type: "conditional_label2",
-                    // TO-DO: set condition block [ %A=0 ] as default block
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
             ],
         },
         {
             kind: "category",
-            name: "All",
+            name: "Overview",
             colour: "345",
             contents: [
                 {
@@ -470,12 +516,50 @@ export const toolbox = {
                 {
                     kind: "block",
                     type: "conditional_label1",
-                    // TO-DO: set condition block [ %A=0 ] as default block
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 {
                     kind: "block",
                     type: "conditional_label2",
-                    // TO-DO: set condition block [ %A=0 ] as default block
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 {
                     kind: "block",

@@ -415,7 +415,7 @@ export const setupBlocklyBlocks = () =>
             "type": "conditional_label2",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "%1 while %2 %3 this %4",
+            "message0": "%1 while %2 %3 section %4",
             "args0": [
                 {
                 "type": "input_statement",
