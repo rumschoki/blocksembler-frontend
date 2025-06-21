@@ -107,38 +107,30 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             let code;
 
             if (register === "%A" && operand === "je") {
-                code = `jmp ${register}`
+                code = `\n jmp ${register}`
             } else {
-                code = `${operand} ${register}`
+                code = `\n ${operand} ${register}`
             }            
 
             return [code, Order.ATOMIC]
         }
 
-        // Label
-        this.generator.forBlock["cond_label"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
+        // Conditional Labels
+        // 1
+        this.generator.forBlock["conditional_label1"] = (block) => {
+            const instructions = this.generator.statementToCode(block, 'instructions');
+            const label = block.getFieldValue("label")
+            const condition = this.generator.valueToCode(block, "condition", Order.ATOMIC)
 
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
+            return `${label}:\n ${instructions} ${condition}` 
         }
-        this.generator.forBlock["do_if"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
+        // 2
+        this.generator.forBlock["conditional_label2"] = (block) => {
+            const instructions = this.generator.statementToCode(block, 'instructions');           
+            const condition = this.generator.valueToCode(block, "condition", Order.ATOMIC)
+            const label = block.getFieldValue("label")
 
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
-        }
-        this.generator.forBlock["if_do"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
-
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
-        }
-        this.generator.forBlock["label"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
-
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
+            return `${label}:\n ${instructions} ${condition}` 
         }
     }
 }

@@ -315,29 +315,13 @@ export const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "cond_label",
-                    inputs: {
-                        // TO-DO: set condition block [ %A=0 ] as default block
-                        condition: {
-                            type: "condition",              
-                        },     
-                        
-                    },
-                    fields: {
-                        "name": "LABEL",
-                    }
+                    type: "conditional_label1",
+                    // TO-DO: set condition block [ %A=0 ] as default block
                 },
                 {
                     kind: "block",
-                    type: "label",
-                },
-                {
-                    kind: "block",
-                    type: "do_if",
-                },
-                {
-                    kind: "block",
-                    type: "if_do",
+                    type: "conditional_label2",
+                    // TO-DO: set condition block [ %A=0 ] as default block
                 },
             ],
         },
@@ -482,6 +466,16 @@ export const toolbox = {
                     fields: {
                         operand: "je",
                     }                
+                },
+                {
+                    kind: "block",
+                    type: "conditional_label1",
+                    // TO-DO: set condition block [ %A=0 ] as default block
+                },
+                {
+                    kind: "block",
+                    type: "conditional_label2",
+                    // TO-DO: set condition block [ %A=0 ] as default block
                 },
                 {
                     kind: "block",
