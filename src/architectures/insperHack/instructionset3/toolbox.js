@@ -30,9 +30,12 @@ export const toolbox = {
                     type: "lea",
                     inputs: {
                         register: {
-                            shadow: {
+                            block: {
                                 type: "%A",
-                            },
+                                fields: {
+                                    text: "%A"
+                                }
+                            }
                         },
                     },
                 },
@@ -41,9 +44,12 @@ export const toolbox = {
                     type: "movi",
                     inputs: {
                         reg1: {
-                            shadow: {
+                            block: {
                                 type: "%D",
-                            },
+                                fields: {
+                                    text: "%D"
+                                }
+                            }
                         },
                     },
                 },
@@ -401,9 +407,12 @@ export const toolbox = {
                     type: "lea",
                     inputs: {
                         register: {
-                            shadow: {
+                            block: {
                                 type: "%A",
-                            },
+                                fields: {
+                                    text: "%A"
+                                }
+                            }
                         },
                     },
                 },
@@ -412,9 +421,12 @@ export const toolbox = {
                     type: "movi",
                     inputs: {
                         reg1: {
-                            shadow: {
+                            block: {
                                 type: "%D",
-                            },
+                                fields: {
+                                    text: "%D"
+                                }
+                            }
                         },
                     },
                 },

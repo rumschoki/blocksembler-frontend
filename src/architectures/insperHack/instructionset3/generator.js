@@ -107,9 +107,9 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             let code;
 
             if (register === "%A" && operand === "je") {
-                code = `\n jmp ${register}`
+                code = `\n jmp ${register} \n`
             } else {
-                code = `\n ${operand} ${register}`
+                code = `\n ${operand} ${register} \n`
             }            
 
             return [code, Order.ATOMIC]

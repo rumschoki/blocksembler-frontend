@@ -88,7 +88,7 @@ export const setupBlocklyBlocks = () =>
             ],
             previousStatement: null,
             nextStatement: null,
-            colour: 150,
+            colour: 75,
             inputsInline: true,
         },
         {
@@ -113,7 +113,7 @@ export const setupBlocklyBlocks = () =>
             ],
             "previousStatement": null,
             "nextStatement": null,
-            "colour": 150,
+            "colour": 75,
             "inputsInline": true
         },
         {
