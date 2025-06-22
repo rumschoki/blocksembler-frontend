@@ -375,6 +375,106 @@ export const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "conditional_label3",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "conditional_label4",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "conditional_label5",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "label1"
+                },
+                {
+                    kind: "block",
+                    type: "jump1",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
             ],
         },
         {
@@ -382,6 +482,10 @@ export const toolbox = {
             name: "Overview",
             colour: "345",
             contents: [
+                {
+                    kind: "block",
+                    type: "comment1",
+                },
                 {
                     kind: "label",
                     text: "Registers"
@@ -552,6 +656,106 @@ export const toolbox = {
                 {
                     kind: "block",
                     type: "conditional_label2",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "conditional_label3",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "conditional_label4",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "conditional_label5",
+                    inputs: {
+                        condition: {
+                            block: {
+                                type: "condition",
+                                fields: {
+                                    operand: "je"
+                                },
+                                inputs: {
+                                    register: {
+                                        block: {
+                                            type: "%A",
+                                            fields: {
+                                                text: "%A"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "label1"
+                },
+                {
+                    kind: "block",
+                    type: "jump1",
                     inputs: {
                         condition: {
                             block: {

@@ -132,5 +132,54 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
 
             return `${label}:\n ${instructions} ${condition}` 
         }
+        // 3
+        this.generator.forBlock["conditional_label3"] = (block) => {
+            const instructions = this.generator.statementToCode(block, 'instructions');           
+            const condition = this.generator.valueToCode(block, "condition", Order.ATOMIC)
+            const label = block.getFieldValue("label")
+
+            return `${label}:\n ${instructions} ${condition}` 
+        }
+        // 4
+        this.generator.forBlock["conditional_label4"] = (block) => {
+            const instructions = this.generator.statementToCode(block, 'instructions');           
+            const condition = this.generator.valueToCode(block, "condition", Order.ATOMIC)
+            const label = block.getFieldValue("label")
+
+            return `${label}:\n ${instructions} ${condition}` 
+        }
+        // 5
+        this.generator.forBlock["conditional_label5"] = (block) => {
+            const instructions = this.generator.statementToCode(block, 'instructions');           
+            const condition = this.generator.valueToCode(block, "condition", Order.ATOMIC)
+            const label = block.getFieldValue("label")
+
+            return `${label}:\n ${instructions} ${condition}` 
+        }
+
+        // Label
+        // 1
+        this.generator.forBlock["label1"] = (block) => {
+            const label = block.getFieldValue("label")
+
+            return `${label}:` 
+        }
+
+        // Jump
+        // 1
+        this.generator.forBlock["jump1"] = (block) => {
+            const condition = this.generator.valueToCode(block, "condition", Order.ATOMIC)
+            const label = block.getFieldValue("label")
+
+            return `${condition}` 
+        }
+
+        // Comments
+        // 1 basic floating comment -> no effect in code
+        this.generator.forBlock["comment1"] = (block) => {
+            const text = block.getFieldValue('text');
+
+            return `` 
+        }
     }
 }

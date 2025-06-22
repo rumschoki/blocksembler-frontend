@@ -6,7 +6,7 @@ export const setupBlocklyBlocks = () =>
             type: "start",
             message0: "start",
             nextStatement: "",
-            colour: 0,
+            colour: 345,
             tooltip: "",
             helpUrl: "",
         },
@@ -15,7 +15,7 @@ export const setupBlocklyBlocks = () =>
             message0: "halt",
             previousStatement: ["instruction", "label"],
             nextStatement: ["instruction"],
-            colour: 0,
+            colour: 345,
             tooltip: "",
             helpUrl: "",
         },
@@ -439,6 +439,165 @@ export const setupBlocklyBlocks = () =>
             "nextStatement": null,
             "colour": 285,
             "inputsInline": true
-            },
-                               
+        },
+
+        {
+            "type": "conditional_label3",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "do %1 %2 while %3 %4",
+            "args0": [
+                {
+                "type": "field_input",
+                "name": "label",
+                "text": "THIS"
+                },
+                {
+                "type": "input_statement",
+                "name": "instructions"
+                },
+                {
+                "type": "input_value",
+                "name": "condition"
+                },
+                {
+                "type": "input_dummy",
+                "name": "label"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 285,
+            "inputsInline": true
+        },
+
+        {
+            "type": "conditional_label4",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "%1 %2 while %3 repeat section %4",
+            "args0": [
+                {
+                "type": "field_input",
+                "name": "label",
+                "text": "NAME"
+                },
+                {
+                "type": "input_statement",
+                "name": "instructions"
+                },
+                {
+                "type": "input_value",
+                "name": "condition"
+                },
+                {
+                "type": "input_dummy",
+                "name": "label"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 285,
+            "inputsInline": true
+        },
+
+        {
+            "type": "conditional_label5",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "%1 %2 if %3 repeat section %4",
+            "args0": [
+                {
+                "type": "field_input",
+                "name": "label",
+                "text": "NAME"
+                },
+                {
+                "type": "input_statement",
+                "name": "instructions"
+                },
+                {
+                "type": "input_value",
+                "name": "condition"
+                },
+                {
+                "type": "input_dummy",
+                "name": "label"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 285,
+            "inputsInline": true
+        },
+
+        {
+            "type": "label1",
+            "tooltip": "insert the name for this line in your porgramm",
+            "helpUrl": "",
+            "message0": "label %1 %2",
+            "args0": [
+                {
+                "type": "field_input",
+                "name": "label",
+                "text": "NAME"
+                },
+                {
+                "type": "input_dummy",
+                "name": "label"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 285,
+            "inputsInline": true
+        },
+
+        {
+            "type": "jump1",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "if %1 then jump to label %2 %3",
+            "args0": [
+                {
+                "type": "input_value",
+                "name": "condition"
+                },
+                {
+                "type": "field_input",
+                "name": "label",
+                "text": "NAME"
+                },
+                {
+                "type": "input_end_row",
+                "name": "label"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 285,
+            "inputsInline": true
+        },
+                    
+
+        {
+            "type": "comment1",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "// %1 %2",
+            "args0": [
+                {
+                "type": "field_input",
+                "name": "text",
+                "text": "comment"
+                },
+                {
+                "type": "input_end_row",
+                "name": "NAME"
+                }
+            ],
+            "colour": 30,
+            "inputsInline": true
+        },
+                                           
     ])
