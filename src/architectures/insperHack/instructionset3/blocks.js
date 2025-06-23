@@ -91,31 +91,7 @@ export const setupBlocklyBlocks = () =>
             colour: 75,
             inputsInline: true,
         },
-        {
-            "type": "movi",
-            "tooltip": "load constant into register",
-            "helpUrl": "",
-            "message0": "load %1 %2 into %3",
-            "args0": [
-                {
-                "type": "field_input",
-                "name": "constant",
-                "text": "0"
-                },
-                {
-                "type": "input_dummy",
-                "name": "operator"
-                },
-                {
-                "type": "input_value",
-                "name": "reg1"
-                }
-            ],
-            "previousStatement": null,
-            "nextStatement": null,
-            "colour": 75,
-            "inputsInline": true
-        },
+        
         {
             type: "mov",
             tooltip: "copy value to destination",

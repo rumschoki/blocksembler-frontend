@@ -41,13 +41,27 @@ export const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "movi",
+                    type: "lea",
                     inputs: {
-                        reg1: {
+                        register: {
                             block: {
                                 type: "%D",
                                 fields: {
                                     text: "%D"
+                                }
+                            }
+                        },
+                    },
+                },
+                {
+                    kind: "block",
+                    type: "lea",
+                    inputs: {
+                        register: {
+                            block: {
+                                type: "(%A)",
+                                fields: {
+                                    text: "(%A)"
                                 }
                             }
                         },
@@ -511,26 +525,9 @@ export const toolbox = {
                     type: "lea",
                     inputs: {
                         register: {
-                            block: {
+                            shadow: {
                                 type: "%A",
-                                fields: {
-                                    text: "%A"
-                                }
-                            }
-                        },
-                    },
-                },
-                {
-                    kind: "block",
-                    type: "movi",
-                    inputs: {
-                        reg1: {
-                            block: {
-                                type: "%D",
-                                fields: {
-                                    text: "%D"
-                                }
-                            }
+                            },
                         },
                     },
                 },
