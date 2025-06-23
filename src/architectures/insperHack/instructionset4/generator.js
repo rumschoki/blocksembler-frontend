@@ -38,7 +38,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
 
             if (reg1 == "%A") {
                 return `lea $${constant} ${reg1}`
-            } else if (reg1 === "%D" || reg1 === "memory") {
+            } else if (reg1 === "%D" || reg1 === "(%A)") {
                 return `mov $${constant} ${reg1}`
             } else {
                 return ``
@@ -48,7 +48,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         this.generator.forBlock["mov"] = (block) => {
             const reg1 = this.generator.valueToCode(block, "reg1", Order.ATOMIC)
             const reg2 = this.generator.valueToCode(block, "reg2", Order.ATOMIC)
-
+                
             return `mov ${reg1} ${reg2}`
         }
 
@@ -78,14 +78,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         this.generator.forBlock["register"] = (block, _generator) => {
             const register = block.getFieldValue("register")
 
-            let reg
-            if (register === "memory") {
-                reg = '(%A)'
-            } else {
-                reg = register
-            }
-
-            return [`${reg}`, Order.ATOMIC]
+            return [`${register}`, Order.ATOMIC]
         }
         const generateRegister = (block, _generator) => {
             return [block.type, Order.ATOMIC]
@@ -93,7 +86,7 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
 
         this.generator.forBlock["%A"] = generateRegister
         this.generator.forBlock["%D"] = generateRegister
-        this.generator.forBlock["memory"] = generateRegister
+        this.generator.forBlock["(%A)"] = generateRegister
 
         // Jump
         // jmp

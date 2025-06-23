@@ -54,7 +54,7 @@ export const setupBlocklyBlocks = () =>
             helpUrl: "",
         },
         {
-            type: "memory",
+            type: "(%A)",
             message0: "memory",
             output: "register",
             colour: 100,

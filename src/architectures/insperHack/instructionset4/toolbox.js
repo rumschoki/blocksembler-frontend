@@ -16,7 +16,7 @@ export const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "memory",
+                    type: "(%A)",
                 },
             ],
         },
@@ -63,7 +63,7 @@ export const toolbox = {
                     inputs: {
                         reg1: {
                             block: {
-                                type: "memory",
+                                type: "(%A)",
                                 fields: {
                                     text: "memory"
                                 }
@@ -347,7 +347,7 @@ export const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "memory",
+                    type: "(%A)",
                 },
                 {
                     kind: "label",
