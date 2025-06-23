@@ -16,7 +16,7 @@ export const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "(%A)",
+                    type: "memory",
                 },
             ],
         },
@@ -26,13 +26,48 @@ export const toolbox = {
             colour: "195",
             contents: [
                 {
+                    kind: "label",
+                    text: "Load / Copy Address"
+                },
+                {
                     kind: "block",
                     type: "lea",
                     inputs: {
                         reg1: {
-                            shadow: {
+                            block: {
                                 type: "%A",
-                            },
+                                fields: {
+                                    text: "%A"
+                                }
+                            }
+                        },
+                    },
+                },
+                {
+                    kind: "block",
+                    type: "lea",
+                    inputs: {
+                        reg1: {
+                            block: {
+                                type: "%D",
+                                fields: {
+                                    text: "%D"
+                                }
+                            }
+                        },
+                    },
+                },
+                {
+                    kind: "block",
+                    type: "lea",
+                    inputs: {
+                        reg1: {
+                            block: {
+                                type: "memory",
+                                fields: {
+                                    text: "memory"
+                                }
+                            }
                         },
                     },
                 },
@@ -53,50 +88,12 @@ export const toolbox = {
                     },
                 },
                 {
-                    kind: "block",
-                    type: "add",
-                    inputs: {
-                        reg1: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                        reg2: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                        reg3: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                    },
-                },    
+                    kind: "label",
+                    text: "Arithmetic Instructions"
+                },
                 {
                     kind: "block",
-                    type: "sub",
-                    inputs: {
-                        reg1: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                        reg2: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                        reg3: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                    },
-                },     
-                {
-                    kind: "block",
-                    type: "and",
+                    type: "twoOp",
                     inputs: {
                         reg1: {
                             shadow: {
@@ -117,28 +114,21 @@ export const toolbox = {
                 },   
                 {
                     kind: "block",
-                    type: "or",
+                    type: "oneOp",
                     inputs: {
                         reg1: {
                             shadow: {
                                 type: "%A",
                             },
                         },
-                        reg2: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                        reg3: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
                     },
-                },          
+                    fields: {
+                        operator: "inc"
+                    }
+                },      
                 {
                     kind: "block",
-                    type: "inc",
+                    type: "oneOp",
                     inputs: {
                         reg1: {
                             shadow: {
@@ -146,42 +136,170 @@ export const toolbox = {
                             },
                         },
                     },
+                    fields: {
+                        operator: "dec"
+                    }
+                },  
+                {
+                    kind: "block",
+                    type: "oneOp",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "neg"
+                    }
+                },  
+                {
+                    kind: "block",
+                    type: "oneOp",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "not"
+                    }
+                },  
+            ],
+        },
+
+        {
+            kind: "category",
+            name: "Jumps/Labels",
+            colour: "315",
+            contents: [
+                {
+                    kind: "label",
+                    text: "Label"
                 },
                 {
                     kind: "block",
-                    type: "dec",
-                    inputs: {
-                        reg1: {
-                            shadow: {
-                                type: "%A",
-                            },
-                        },
-                    },
+                    type: "label",
+                },
+                {
+                    kind: "label",
+                    text: "Unconditional Jump"
                 },
                 {
                     kind: "block",
-                    type: "neg",
+                    type: "jmp",
                     inputs: {
                         reg1: {
-                            shadow: {
+                            block: {
                                 type: "%A",
-                            },
+                                fields: {
+                                    text: "%A"
+                                }
+                            }
                         },
                     },
+                    
+                },
+                {
+                    kind: "label",
+                    text: "Conditional Jump"
                 },
                 {
                     kind: "block",
-                    type: "not",
+                    type: "jump",
                     inputs: {
                         reg1: {
                             shadow: {
-                                type: "%A",
+                                type: "%D",
                             },
                         },
                     },
+                    fields: {
+                        operator: "je"
+                    }
+                    
+                },
+                {
+                    kind: "block",
+                    type: "jump",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "jne"
+                    }
+                    
+                },
+                {
+                    kind: "block",
+                    type: "jump",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "jl"
+                    }
+                    
+                },
+                {
+                    kind: "block",
+                    type: "jump",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "jle"
+                    }
+                    
+                },
+                {
+                    kind: "block",
+                    type: "jump",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "jg"
+                    }
+                    
+                },
+                {
+                    kind: "block",
+                    type: "jump",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "jge"
+                    }
+                    
                 },
             ],
         },
+
         {
             kind: "category",
             name: "Control flow",
@@ -209,120 +327,168 @@ export const toolbox = {
                 },
             ],
         },
+
         {
             kind: "category",
-            name: "Label",
-            colour: "285",
+            name: "Overview",
+            colour: "345",
             contents: [
                 {
+                    kind: "label",
+                    text: "Registers"
+                },
+                {
                     kind: "block",
-                    type: "condition",
+                    type: "%A",
+                },
+                {
+                    kind: "block",
+                    type: "%D",
+                },
+                {
+                    kind: "block",
+                    type: "memory",
+                },
+                {
+                    kind: "label",
+                    text: "Load / Copy Address"
+                },
+                {
+                    kind: "block",
+                    type: "lea",
                     inputs: {
-                        register: {
+                        reg1: {
                             shadow: {
                                 type: "%A",
                             },
                         },
-                    },    
-                    fields: {
-                        operand: "je",
-                    }                
+                    },
                 },
+        
                 {
                     kind: "block",
-                    type: "condition",
+                    type: "mov",
                     inputs: {
-                        register: {
+                        reg1: {
+                            shadow: {
+                                type: "%A",
+                            },
+                        },
+                        reg2: {
                             shadow: {
                                 type: "%D",
                             },
                         },
-                    },    
-                    fields: {
-                        operand: "jne",
-                    }                
+                    },
+                },
+                {
+                    kind: "label",
+                    text: "Arithmetic Operations"
                 },
                 {
                     kind: "block",
-                    type: "condition",
+                    type: "twoOp",
                     inputs: {
-                        register: {
+                        reg1: {
                             shadow: {
-                                type: "%D",
+                                type: "%A",
                             },
                         },
-                    },    
-                    fields: {
-                        operand: "jl",
-                    }                
-                },
-                {
-                    kind: "block",
-                    type: "condition",
-                    inputs: {
-                        register: {
+                        reg2: {
                             shadow: {
-                                type: "%D",
+                                type: "%A",
                             },
                         },
-                    },    
-                    fields: {
-                        operand: "jg",
-                    }                
-                },
-                {
-                    kind: "block",
-                    type: "condition",
-                    inputs: {
-                        register: {
+                        reg3: {
                             shadow: {
-                                type: "%D",
+                                type: "%A",
                             },
                         },
-                    },    
-                    fields: {
-                        operand: "jle",
-                    }                
-                },
+                    },
+                },       
                 {
                     kind: "block",
-                    type: "condition",
+                    type: "oneOp",
                     inputs: {
-                        register: {
+                        reg1: {
                             shadow: {
-                                type: "%D",
+                                type: "%A",
                             },
                         },
-                    },    
-                    fields: {
-                        operand: "jge",
-                    }                
-                },
-                {
-                    kind: "block",
-                    type: "cond_label",
-                    inputs: {
-                        // TO-DO: set condition block [ %A=0 ] as default block
-                        condition: {
-                            type: "condition",              
-                        },     
-                        
                     },
                     fields: {
-                        "name": "LABEL",
+                        operator: "inc"
                     }
+                },       
+                {
+                    kind: "label",
+                    text: "Label"
                 },
                 {
                     kind: "block",
                     type: "label",
                 },
                 {
-                    kind: "block",
-                    type: "do_if",
+                    kind: "label",
+                    text: "Unconditional Jump"
                 },
                 {
                     kind: "block",
-                    type: "if_do",
+                    type: "jmp",
+                    inputs: {
+                        reg1: {
+                            block: {
+                                type: "%A",
+                                fields: {
+                                    text: "%A"
+                                }
+                            }
+                        },
+                    },
+                    
+                },
+                {
+                    kind: "label",
+                    text: "Conditional Jump"
+                },
+                {
+                    kind: "block",
+                    type: "jump",
+                    inputs: {
+                        reg1: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    },
+                    fields: {
+                        operator: "je"
+                    }
+                    
+                },
+                {
+                    kind: "label",
+                    text: "Control Flow"
+                },
+                {
+                    kind: "block",
+                    type: "start",
+                },
+                {
+                    kind: "block",
+                    type: "out",
+                    inputs: {
+                        register: {
+                            shadow: {
+                                type: "%D",
+                            },
+                        },
+                    }
+                    
+                },
+                {
+                    kind: "block",
+                    type: "halt",
                 },
             ],
         },

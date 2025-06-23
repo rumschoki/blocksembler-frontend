@@ -36,7 +36,13 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
             const constant = block.getFieldValue("constant")
             const reg1 = this.generator.valueToCode(block, "reg1", Order.ATOMIC)
 
-            return `lea $${constant} ${reg1}`
+            if (reg1 == "%A") {
+                return `lea $${constant} ${reg1}`
+            } else if (reg1 === "%D" || reg1 === "memory") {
+                return `mov $${constant} ${reg1}`
+            } else {
+                return ``
+            }
         }
         // mov
         this.generator.forBlock["mov"] = (block) => {
@@ -47,71 +53,24 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         }
 
         // Operations
-        // add
-        this.generator.forBlock["add"] = (block) => {
+        // twoOp
+        this.generator.forBlock["twoOp"] = (block) => {
+            const operator = block.getFieldValue("operator")
             const reg1 = this.generator.valueToCode(block, "reg1", Order.ATOMIC)
             const reg2 = this.generator.valueToCode(block, "reg2", Order.ATOMIC)
             const reg3 = this.generator.valueToCode(block, "reg3", Order.ATOMIC)
             const reg4 = this.generator.valueToCode(block, "reg4", Order.ATOMIC)
             const reg5 = this.generator.valueToCode(block, "reg5", Order.ATOMIC)
 
-            return `add ${reg1} ${reg2} ${reg3} ${reg4} ${reg5}`
+            return `${operator} ${reg1} ${reg2} ${reg3} ${reg4} ${reg5}`
         }
-        // sub
-        this.generator.forBlock["aub"] = (block) => {
+
+        // oneOp
+        this.generator.forBlock["oneOp"] = (block) => {
+            const operator = block.getFieldValue("operator")
             const reg1 = this.generator.valueToCode(block, "reg1", Order.ATOMIC)
-            const reg2 = this.generator.valueToCode(block, "reg2", Order.ATOMIC)
-            const reg3 = this.generator.valueToCode(block, "reg3", Order.ATOMIC)
-            const reg4 = this.generator.valueToCode(block, "reg4", Order.ATOMIC)
-            const reg5 = this.generator.valueToCode(block, "reg5", Order.ATOMIC)
 
-            return `aub ${reg1} ${reg2} ${reg3} ${reg4} ${reg5}`
-        }
-        // and
-        this.generator.forBlock["and"] = (block) => {
-            const reg1 = this.generator.valueToCode(block, "reg1", Order.ATOMIC)
-            const reg2 = this.generator.valueToCode(block, "reg2", Order.ATOMIC)
-            const reg3 = this.generator.valueToCode(block, "reg3", Order.ATOMIC)
-            const reg4 = this.generator.valueToCode(block, "reg4", Order.ATOMIC)
-            const reg5 = this.generator.valueToCode(block, "reg5", Order.ATOMIC)
-
-            return `and ${reg1} ${reg2} ${reg3} ${reg4} ${reg5}`
-        }
-        // or
-        this.generator.forBlock["or"] = (block) => {
-            const reg1 = this.generator.valueToCode(block, "reg1", Order.ATOMIC)
-            const reg2 = this.generator.valueToCode(block, "reg2", Order.ATOMIC)
-            const reg3 = this.generator.valueToCode(block, "reg3", Order.ATOMIC)
-            const reg4 = this.generator.valueToCode(block, "reg4", Order.ATOMIC)
-            const reg5 = this.generator.valueToCode(block, "reg5", Order.ATOMIC)
-
-            return `or ${reg1} ${reg2} ${reg3} ${reg4} ${reg5}`
-        }
-
-        // inc
-        this.generator.forBlock['inc'] = (block) => {
-            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
-
-            return `inc ${reg1}`
-        }
-        //dec
-        this.generator.forBlock['dec'] = (block) => {
-            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
-
-            return `dec ${reg1}`
-        }
-
-        // not
-        this.generator.forBlock['neg'] = (block) => {
-            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
-
-            return `neg ${reg1}`
-        }
-        // neg
-        this.generator.forBlock['not'] = (block) => {
-            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
-
-            return `not ${reg1}`
+            return `${operator} ${reg1}`
         }
 
 
@@ -119,7 +78,14 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
         this.generator.forBlock["register"] = (block, _generator) => {
             const register = block.getFieldValue("register")
 
-            return [`${register}`, Order.ATOMIC]
+            let reg
+            if (register === "memory") {
+                reg = '(%A)'
+            } else {
+                reg = register
+            }
+
+            return [`${reg}`, Order.ATOMIC]
         }
         const generateRegister = (block, _generator) => {
             return [block.type, Order.ATOMIC]
@@ -127,47 +93,28 @@ export class InsperHackBlocklyGenerator extends BaseBlocklyGenerator {
 
         this.generator.forBlock["%A"] = generateRegister
         this.generator.forBlock["%D"] = generateRegister
-        this.generator.forBlock["(%A)"] = generateRegister
+        this.generator.forBlock["memory"] = generateRegister
 
-        // Condition
-        this.generator.forBlock["condition"] = (block) => {
-            const register = this.generator.valueToCode(block, "register", Order.ATOMIC)
-            const operand = block.getFieldValue("operand")
-            let code;
+        // Jump
+        // jmp
+        this.generator.forBlock['jmp'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
 
-            if (register === "%A" && operand === "je") {
-                code = `jmp ${register}`
-            } else {
-                code = `${operand} ${register}`
-            }            
+            return `jmp ${reg1}`
+        }
+        // jump
+        this.generator.forBlock['jump'] = (block) => {
+            const reg1 = this.generator.valueToCode(block, 'reg1', Order.ATOMIC);
+            const operator = block.getFieldValue('operator');
 
-            return [code, Order.ATOMIC]
+            return `${operator} ${reg1}`
         }
 
         // Label
-        this.generator.forBlock["cond_label"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
+        this.generator.forBlock['label'] = (block) => {
+            const label = block.getFieldValue('label');
 
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
-        }
-        this.generator.forBlock["do_if"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
-
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
-        }
-        this.generator.forBlock["if_do"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
-
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
-        }
-        this.generator.forBlock["label"] = (block) => {
-            const text = block.getFieldValue("name")
-            const value = this.generator.valueToCode(block, "blocks", Order.ATOMIC)
-
-            return `${text}: ${value}` // TO-DO: Blocks in C-Block should render instruction-code
+            return `${label}: `
         }
     }
 }
