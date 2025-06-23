@@ -66,7 +66,7 @@ export const setupBlocklyBlocks = () =>
             "type": "lea",
             "tooltip": "load constant into register",
             "helpUrl": "",
-            "message0": "lea %1 %2 in %3",
+            "message0": "load %1 %2 into %3",
             "args0": [
                 {
                 "type": "field_input",
@@ -92,7 +92,7 @@ export const setupBlocklyBlocks = () =>
             type: "mov",
             tooltip: "copy value to destination",
             helpUrl: "",
-            message0: "mov %1 %2 to %3",
+            message0: "copy %1 %2 into %3",
             args0: [
                 {
                 "type": "input_value",
@@ -120,15 +120,19 @@ export const setupBlocklyBlocks = () =>
             "message0": "%1 %2 %3 --> %4 %5 %6",
             "args0": [
                 {
+                "type": "input_value",
+                "name": "reg1"
+                },
+                {
                 "type": "field_dropdown",
                 "name": "operator",
                 "options": [
                     [
-                    "add",
+                    "+",
                     "add"
                     ],
                     [
-                    "sub",
+                    "-",
                     "sub"
                     ],
                     [
@@ -140,10 +144,6 @@ export const setupBlocklyBlocks = () =>
                     "or"
                     ]
                 ]
-                },
-                {
-                "type": "input_value",
-                "name": "reg1"
                 },
                 {
                 "type": "input_value",
@@ -208,18 +208,111 @@ export const setupBlocklyBlocks = () =>
         }, 
 
         {
-            "type": "jmp",
-            "tooltip": "",
-            "helpUrl": "",
-            "message0": "jmp %1 %2 ||| %3",
-            "args0": [
+            type: "condition",
+            tooltip: "",
+            helpUrl: "",
+            message0: "%1 %2 %3 0 %4",
+            args0: [
                 {
-                "type": "input_dummy",
-                "name": "operator"
+                    type: "input_dummy",
                 },
                 {
+                    type: "input_value",
+                    name: "register",
+                },
+                {
+                "type": "field_dropdown",
+                "name": "operand",
+                "options": [
+                    [
+                    "=",
+                    "je"
+                    ],
+                    [
+                    "!=",
+                    "jne"
+                    ],
+                    [
+                    "<",
+                    "jl"
+                    ],
+                    [
+                    ">",
+                    "jg"
+                    ],
+                    [
+                    "<=",
+                    "jle"
+                    ],
+                    [
+                    ">=",
+                    "jge"
+                    ],
+                ]
+                },
+                {
+                    type: "input_end_row",
+                    name: "text2",
+                },
+            ],
+            output: null,
+            colour: 250,
+            inputsInline: true,
+        },
+
+        {
+            "type": "jmp1",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "if %1 jump to %2",
+            "args0": [
+                {
                 "type": "input_value",
-                "name": "reg1"
+                "name": "condition"
+                },
+                {
+                    type: "field_input",
+                    name: "label",
+                    text: "LABEL",
+                },
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 315,
+            "inputsInline": true
+        },
+
+        {
+            "type": "jmp2",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "if %1 go to line %2",
+            "args0": [
+                {
+                "type": "input_value",
+                "name": "condition"
+                },
+                {
+                    type: "field_input",
+                    name: "label",
+                    text: "LABEL",
+                },
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 315,
+            "inputsInline": true
+        },
+
+        {
+            "type": "jmp3",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "if %1 repeat from %2",
+            "args0": [
+                {
+                "type": "input_value",
+                "name": "condition"
                 },
                 {
                     type: "field_input",
@@ -237,7 +330,7 @@ export const setupBlocklyBlocks = () =>
             "type": "label",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "||| %1 %2",
+            "message0": "%1 %2",
             "args0": [
                 {
                     type: "field_input",
@@ -255,44 +348,61 @@ export const setupBlocklyBlocks = () =>
             "inputsInline": true
         },
         {
-            "type": "jump",
+            "type": "jump1",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "%1 %2 ||| %3",
+            "message0": "if %1 jump to %2",
             "args0": [
-                {
-                "type": "field_dropdown",
-                "name": "operator",
-                "options": [
-                    [
-                    "je",
-                    "je"
-                    ],
-                    [
-                    "jne",
-                    "jne"
-                    ],
-                    [
-                    "jl",
-                    "jl"
-                    ],
-                    [
-                    "jle",
-                    "jle"
-                    ],
-                    [
-                    "jg",
-                    "jg"
-                    ],
-                    [
-                    "jge",
-                    "jge"
-                    ]
-                ]
-                },
+                
                 {
                 "type": "input_value",
-                "name": "reg1"
+                "name": "condition"
+                },
+                {
+                    type: "field_input",
+                    name: "label",
+                    text: "LABEL",
+                },
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 315,
+            "inputsInline": true
+        },
+
+        {
+            "type": "jump2",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "if %1 go to line %2",
+            "args0": [
+                
+                {
+                "type": "input_value",
+                "name": "condition"
+                },
+                {
+                    type: "field_input",
+                    name: "label",
+                    text: "LABEL",
+                },
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 315,
+            "inputsInline": true
+        },
+
+        {
+            "type": "jump3",
+            "tooltip": "",
+            "helpUrl": "",
+            "message0": "if %1 repeat from %2",
+            "args0": [
+                
+                {
+                "type": "input_value",
+                "name": "condition"
                 },
                 {
                     type: "field_input",
