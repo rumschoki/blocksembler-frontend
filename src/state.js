@@ -7,7 +7,7 @@ import { logEvent } from "@/logging.js"
 const architecturePluginKey =
     import.meta.env.VITE_BLOCKSEMBLER_DEFAULT_ARCHITECTURE !== undefined
         ? import.meta.env.VITE_BLOCKSEMBLER_DEFAULT_ARCHITECTURE
-        : "insperHack5"
+        : "insperHack6"
 
 class BlocksemblerState {
     constructor() {
